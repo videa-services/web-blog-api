@@ -8,7 +8,6 @@ import services.videa.web.blog.api.repositories.BlogRepository;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class WebBlogApiConfiguration {
@@ -18,14 +17,15 @@ public class WebBlogApiConfiguration {
 
     @PostConstruct
     public void initialiseData() {
+        //blogRepository.deleteAll();
+
         Blog blog = new Blog();
 
         blog.setTitle("Hitchhiker's guide to the galaxy");
         blog.setContent("The Hitchhiker's Guide to the Galaxy (sometimes referred to as HG2G, HHGTTG, H2G2, or tHGttG) " +
                 "is a comedy science fiction series created by Douglas Adams.");
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String timestamp = LocalDateTime.now().format(dateTimeFormatter);
+        String timestamp = TimestampUtils.timestamp(LocalDateTime.now());
         blog.setTimestamp(timestamp);
 
         blogRepository.save(blog);
