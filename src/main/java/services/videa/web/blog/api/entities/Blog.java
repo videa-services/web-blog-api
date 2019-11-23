@@ -2,10 +2,9 @@ package services.videa.web.blog.api.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,5 +18,9 @@ public class Blog {
     private String content;
 
     private String timestamp; // YYYY-MM-DD HH:MM:SS
+
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "blog_id")
+    private List<Comment> comments = new ArrayList<>();
 
 }
